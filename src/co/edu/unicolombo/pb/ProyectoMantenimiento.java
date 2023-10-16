@@ -17,8 +17,8 @@ public class ProyectoMantenimiento {
         
         VentanaPrincipal ventana = new VentanaPrincipal();
          ventana.setLocationRelativeTo(null);
-       // ventana.setExtendedState(VentanaPrincipal.MAXIMIZED_BOTH); comentario de pantalla completa
-        
+       // ventana.setExtendedState(VentanaPrincipal.MAXIMIZED_BOTH); comentario de pantalla completa..
+        ventana.setVisible(true);
         
         
     }
