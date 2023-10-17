@@ -13,10 +13,8 @@ import java.util.*;
  */
 public class Salones {
     public String nombresalon;
-    public String dispositivo;
-    public String dispositivo2;
-    public String dispositivo3;
+    public String dispositivos;
     public ArrayList<Dispositivos> listadedispositivos;
-    
+    public static HashMap<String, Salones> salonesBD;
     
 }
