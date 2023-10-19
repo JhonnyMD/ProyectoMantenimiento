@@ -67,8 +67,13 @@ public class VentanaSalones extends javax.swing.JDialog {
         jLabel4.setText("ingrese cantidad de dispositivos del salon: ");
 
         txtarea.setColumns(20);
+        txtarea.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtarea.setRows(5);
+        txtarea.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtarea.setEnabled(false);
+        txtarea.setSelectionColor(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(txtarea);
+        txtarea.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

@@ -20,7 +20,7 @@ public class ProyectoMantenimiento {
        // ventana.setExtendedState(VentanaPrincipal.MAXIMIZED_BOTH); comentario de pantalla completa..
         ventana.setVisible(true);
         
-        
+    
     }
     
 }

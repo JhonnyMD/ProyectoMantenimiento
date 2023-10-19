@@ -4,6 +4,11 @@
  */
 package co.edu.unicolombo.pb.ventanas;
 
+import co.edu.unicolombo.pb.datos.Salones;
+import javax.swing.JOptionPane;
+
+
+
 /**
  *
  * @author POWERGROUP
@@ -30,7 +35,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         itemconsultarsalones = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        itemtodoslossalones = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -49,13 +55,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         itemconsultarsalones.add(jMenuItem1);
+        itemconsultarsalones.add(jSeparator1);
 
-        jMenuItem2.setText("Ver lista de salones...");
-        itemconsultarsalones.add(jMenuItem2);
+        itemtodoslossalones.setText("Ver lista de salones...");
+        itemtodoslossalones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemtodoslossalonesActionPerformed(evt);
+            }
+        });
+        itemconsultarsalones.add(itemtodoslossalones);
 
         jMenuBar1.add(itemconsultarsalones);
 
-        jMenu2.setText("Reportes");
+        jMenu2.setText(" Reportes");
 
         jMenuItem4.setText("Realizar Reporte");
         jMenu2.add(jMenuItem4);
@@ -71,11 +83,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 963, Short.MAX_VALUE)
+            .addGap(0, 1005, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 510, Short.MAX_VALUE)
+            .addGap(0, 577, Short.MAX_VALUE)
         );
 
         pack();
@@ -88,6 +100,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ventanasalones.setVisible(true);  
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void itemtodoslossalonesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemtodoslossalonesActionPerformed
+            
+        
+          if(Salones.salonesBD == null || Salones.salonesBD.isEmpty()){
+            
+             JOptionPane.showMessageDialog(this, "No existen salones ", "Error", JOptionPane.ERROR_MESSAGE);
+             
+             return;
+        
+        }
+        VentanaListaSalones ventana = new VentanaListaSalones(this, true);
+        ventana.setLocationRelativeTo(this);
+        ventana.setVisible(true);  
+      
+
+
+    }//GEN-LAST:event_itemtodoslossalonesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -126,12 +156,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu itemconsultarsalones;
+    private javax.swing.JMenuItem itemtodoslossalones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }
