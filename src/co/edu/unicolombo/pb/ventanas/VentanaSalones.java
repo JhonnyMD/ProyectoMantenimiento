@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
  */
 public class VentanaSalones extends javax.swing.JDialog {
     
+    Salones salones;
+    
     private String dispositivos[];
 
     /**
@@ -44,6 +46,9 @@ public class VentanaSalones extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         botoncancelar = new javax.swing.JButton();
         botonguardar = new javax.swing.JButton();
+        botonbuscar = new javax.swing.JButton();
+        botoneditar = new javax.swing.JButton();
+        botoneliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("ESPECIFICACIONES DE SALONES");
@@ -75,15 +80,14 @@ public class VentanaSalones extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addGap(18, 18, 18)
-                            .addComponent(txtnombresalon, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txttam, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtnombresalon, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txttam, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)))
                 .addGap(14, 14, 14))
         );
         jPanel1Layout.setVerticalGroup(
@@ -107,14 +111,43 @@ public class VentanaSalones extends javax.swing.JDialog {
 
         botoncancelar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         botoncancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/co/edu/unicolombo/pb/ventanas/icons/inconcancelar.png"))); // NOI18N
-        botoncancelar.setText("CANCELAR");
+        botoncancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botoncancelarActionPerformed(evt);
+            }
+        });
 
         botonguardar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         botonguardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/co/edu/unicolombo/pb/ventanas/icons/iconsave.png"))); // NOI18N
-        botonguardar.setText("GUARDAR");
         botonguardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonguardarActionPerformed(evt);
+            }
+        });
+
+        botonbuscar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        botonbuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/co/edu/unicolombo/pb/ventanas/icons/iconbuscar.png"))); // NOI18N
+        botonbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonbuscarActionPerformed(evt);
+            }
+        });
+
+        botoneditar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        botoneditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/co/edu/unicolombo/pb/ventanas/icons/iconedit.png"))); // NOI18N
+        botoneditar.setEnabled(false);
+        botoneditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botoneditarActionPerformed(evt);
+            }
+        });
+
+        botoneliminar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        botoneliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/co/edu/unicolombo/pb/ventanas/icons/icondelete.png"))); // NOI18N
+        botoneliminar.setEnabled(false);
+        botoneliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botoneliminarActionPerformed(evt);
             }
         });
 
@@ -131,14 +164,21 @@ public class VentanaSalones extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(38, 38, 38)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(botoncancelar)
+                                .addGap(81, 81, 81)
+                                .addComponent(botoneliminar)
+                                .addGap(86, 86, 86)
+                                .addComponent(botoneditar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botonbuscar)
+                                .addGap(78, 78, 78)
+                                .addComponent(botonguardar)
+                                .addGap(3, 3, 3))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(52, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(botoncancelar)
-                .addGap(18, 18, 18)
-                .addComponent(botonguardar)
-                .addGap(55, 55, 55))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,11 +189,14 @@ public class VentanaSalones extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonguardar)
                     .addComponent(botoncancelar)
-                    .addComponent(botonguardar))
-                .addContainerGap(16, Short.MAX_VALUE))
+                    .addComponent(botonbuscar)
+                    .addComponent(botoneliminar)
+                    .addComponent(botoneditar))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -163,6 +206,15 @@ public class VentanaSalones extends javax.swing.JDialog {
 
          String nombresalon = txtnombresalon.getText();
          String taman = txttam.getText();
+
+        try {
+     int tamano = Integer.parseInt(taman);
+        } catch (NumberFormatException e) {
+    JOptionPane.showMessageDialog(this, "Por favor, ingrese un número entero válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+         
+         
+         
          
          
          if(nombresalon.isEmpty() || taman.isEmpty()){
@@ -230,9 +282,9 @@ JOptionPane.showMessageDialog(this, "el salon " + nombresalon +" ya ha sido regi
               
               
 
-             txtarea.append("el salon " + nombresalon + " fue registrado con los siguientes dispositivos: " + dispositivos + "\n" );
+             
           
-          
+             limpiarcampos();
           }
           
           
@@ -244,6 +296,194 @@ JOptionPane.showMessageDialog(this, "el salon " + nombresalon +" ya ha sido regi
 
 
     }//GEN-LAST:event_botonguardarActionPerformed
+
+    public void limpiarcampos(){
+    txtnombresalon.setText("");
+    txttam.setText("");
+    botoneditar.setEnabled(false);
+    botoneliminar.setEnabled(false);
+    
+    
+    }
+    
+    
+    private void botonbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonbuscarActionPerformed
+       
+        String nombresalon = txtnombresalon.getText();
+        
+        if(Salones.salonesBD == null || Salones.salonesBD.isEmpty()){
+            
+         JOptionPane.showMessageDialog(this, "No existen salones en la base de datos ", "Error", JOptionPane.ERROR_MESSAGE);          
+        
+        }else{
+            
+            if(Salones.salonesBD.containsKey(nombresalon) ){
+                
+                  this.salones = Salones.salonesBD.get(nombresalon);
+                
+                txtarea.append("usted ha buscado el salon: " + this.salones.nombresalon+ ",que contiene los siguientes dispositivos: " + this.salones.dispositivos + "\n");
+                
+               botoneditar.setEnabled(true);
+               botoneliminar.setEnabled(true);
+            
+            }else{
+                
+                
+       JOptionPane.showMessageDialog(this, "el salon buscado no existe ", "Error", JOptionPane.ERROR_MESSAGE);          
+
+            limpiarcampos();
+            
+            
+            
+            
+            }
+            
+            
+        
+        }
+
+
+
+
+
+
+
+    }//GEN-LAST:event_botonbuscarActionPerformed
+
+    private void botoneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botoneditarActionPerformed
+        botonbuscarActionPerformed(evt);
+        
+        
+        if(txtnombresalon.getText() == null || txtnombresalon.getText().isEmpty()){
+            
+             JOptionPane.showMessageDialog(this, "Para editar primero debe buscar un salon ", "Error", JOptionPane.ERROR_MESSAGE);          
+
+            limpiarcampos();
+            
+            return;
+        
+        }
+        
+        if(txtnombresalon.getText().equals(this.salones.nombresalon) != true){
+            
+            JOptionPane.showMessageDialog(this, "el salon ingresado no coincide con el salon ingresado previamente ", "Error", JOptionPane.ERROR_MESSAGE);          
+
+            limpiarcampos();
+            
+            return;
+        
+        }
+        
+        
+        
+        
+         this.salones = Salones.salonesBD.get(txtnombresalon.getText());
+        
+        String nombresalon = txtnombresalon.getText();
+         String taman = txttam.getText();
+         
+         try {
+     int tamano = Integer.parseInt(taman);
+        } catch (NumberFormatException e) {
+    JOptionPane.showMessageDialog(this, "Por favor, ingrese un número entero válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+         
+         int tamano = Integer.parseInt(taman);
+         String dispositivos = "";
+          
+          for (int i = 0; i < tamano; i++) {
+              
+              
+              
+              
+              String dispositivo =   JOptionPane.showInputDialog(this, "ingrese dispositivo " + (i + 1));
+              
+              
+              if(dispositivo.isEmpty()){
+                  
+                  
+               JOptionPane.showMessageDialog(this, "No se encontro dispositivo ingresado, Dispositivo no registrado ", "Error", JOptionPane.ERROR_MESSAGE);
+
+              
+              
+              
+              }else{
+              
+              dispositivos += dispositivo.toLowerCase() + ",";
+              
+              
+              }
+              
+        }
+          
+          this.salones.nombresalon = nombresalon;
+          this.salones.dispositivos = dispositivos;
+          
+          Salones.salonesBD.put(this.salones.nombresalon, salones);
+          
+          
+          JOptionPane.showMessageDialog(this, "Salon modificado con exito");
+         
+         
+        
+        
+
+
+
+
+    }//GEN-LAST:event_botoneditarActionPerformed
+
+    private void botoneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botoneliminarActionPerformed
+
+    if(txtnombresalon.getText() == null || txtnombresalon.getText().isEmpty()){
+            
+             JOptionPane.showMessageDialog(this, "Para editar primero debe buscar un salon ", "Error", JOptionPane.ERROR_MESSAGE);          
+
+            limpiarcampos();
+            
+            return;
+        
+        }
+        
+        if(txtnombresalon.getText().equals(this.salones.nombresalon) != true){
+            
+            JOptionPane.showMessageDialog(this, "el salon ingresado no coincide con el salon ingresado previamente ", "Error", JOptionPane.ERROR_MESSAGE);          
+
+            limpiarcampos();
+            
+            return;
+        
+        }
+        
+        int respuesta = JOptionPane.showConfirmDialog(this, "seguro que desea eliminar el salon?" , "COMFIRMAR", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            
+        
+        if(respuesta == JOptionPane.YES_OPTION){
+            
+            Salones.salonesBD.remove(this.salones.nombresalon);
+            
+            int total = Salones.salonesBD.size();
+            JOptionPane.showMessageDialog(this, "Salon eliminado con exito \ntotal de salones actual: "+ total);
+                    
+        
+        }
+
+
+    }//GEN-LAST:event_botoneliminarActionPerformed
+
+    private void botoncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botoncancelarActionPerformed
+
+        int opcion = JOptionPane.showConfirmDialog(this, "Desea cerrar la ventana?", "COMFIRMACION!!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) ;
+            
+        if(opcion == JOptionPane.YES_OPTION){
+            
+            this.dispose();
+        
+        }
+
+
+
+    }//GEN-LAST:event_botoncancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -288,7 +528,10 @@ JOptionPane.showMessageDialog(this, "el salon " + nombresalon +" ya ha sido regi
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonbuscar;
     private javax.swing.JButton botoncancelar;
+    private javax.swing.JButton botoneditar;
+    private javax.swing.JButton botoneliminar;
     private javax.swing.JButton botonguardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
