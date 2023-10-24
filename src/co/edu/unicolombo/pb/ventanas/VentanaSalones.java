@@ -264,8 +264,12 @@ public class VentanaSalones extends javax.swing.JDialog {
           
           Salones s = new Salones();
           
+         String estadosalon = " ESTABLE ";
+          
           s.nombresalon = nombresalon;
           s.dispositivos = dispositivos;
+          s.estado = estadosalon;
+         
           
           if(Salones.salonesBD == null){
               

@@ -14,6 +14,8 @@ import java.util.*;
 public class Salones {
     public String nombresalon;
     public String dispositivos;
+    public String estado;
+    public String detalles;
     public ArrayList<Dispositivos> listadedispositivos;
     public static HashMap<String, Salones> salonesBD;
     

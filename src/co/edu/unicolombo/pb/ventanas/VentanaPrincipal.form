@@ -38,16 +38,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value=" Reportes"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenu2ActionPerformed"/>
+          </Events>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
+            <MenuItem class="javax.swing.JMenuItem" name="itemrelizarreporte">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Realizar Reporte"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Ver todos los reportes"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemrelizarreporteActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

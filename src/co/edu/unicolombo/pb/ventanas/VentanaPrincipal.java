@@ -38,8 +38,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         itemtodoslossalones = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        itemrelizarreporte = new javax.swing.JMenuItem();
 
         jLabel1.setText("jLabel1");
 
@@ -68,12 +67,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(itemconsultarsalones);
 
         jMenu2.setText(" Reportes");
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
 
-        jMenuItem4.setText("Realizar Reporte");
-        jMenu2.add(jMenuItem4);
-
-        jMenuItem5.setText("Ver todos los reportes");
-        jMenu2.add(jMenuItem5);
+        itemrelizarreporte.setText("Realizar Reporte");
+        itemrelizarreporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemrelizarreporteActionPerformed(evt);
+            }
+        });
+        jMenu2.add(itemrelizarreporte);
 
         jMenuBar1.add(jMenu2);
 
@@ -119,6 +125,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_itemtodoslossalonesActionPerformed
 
+    private void itemrelizarreporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemrelizarreporteActionPerformed
+           if(Salones.salonesBD == null || Salones.salonesBD.isEmpty()){
+            
+             JOptionPane.showMessageDialog(this, "No existen salones ", "Error", JOptionPane.ERROR_MESSAGE);
+             
+             return;
+        
+        }
+     VentanaReportes ventanareportes = new VentanaReportes(this, true); 
+     ventanareportes.setLocationRelativeTo(this);
+     ventanareportes.setVisible(true);
+
+
+    }//GEN-LAST:event_itemrelizarreporteActionPerformed
+
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -156,13 +181,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu itemconsultarsalones;
+    private javax.swing.JMenuItem itemrelizarreporte;
     private javax.swing.JMenuItem itemtodoslossalones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }
