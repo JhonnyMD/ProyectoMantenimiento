@@ -7,7 +7,10 @@ package co.edu.unicolombo.pb.ventanas;
 import co.edu.unicolombo.pb.datos.Salones;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
-
+import co.edu.unicolombo.pb.persistencia.Almacenamiento;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author POWERGROUP
@@ -210,94 +213,124 @@ public class VentanaSalones2 extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonguardarActionPerformed
-
-         String nombresalon = txtnombresalon.getText();
-         String taman = txttam.getText();
-
-        try {
-     int tamano = Integer.parseInt(taman);
-        } catch (NumberFormatException e) {
-    JOptionPane.showMessageDialog(this, "Por favor, ingrese un número entero válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            
+        try {                                             
+            
+            String nombresalon = txtnombresalon.getText();
+            String taman = txttam.getText();
+            
+            
+            
+            try {
+                int tamano = Integer.parseInt(taman);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Por favor, ingrese un número entero válido.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-         
-         
-         
-         
-         
-         if(nombresalon.isEmpty() || taman.isEmpty()){
-             
-         JOptionPane.showMessageDialog(this, "Falta ingresar datos ", "Error", JOptionPane.ERROR_MESSAGE);
-         
-         }
-         
-         
-         
-       
-         
-         int tamano = Integer.parseInt(taman);
-         String dispositivos = "";
-          
-          for (int i = 0; i < tamano; i++) {
-              
-              
-              
-              
-              String dispositivo =   JOptionPane.showInputDialog(this, "ingrese dispositivo " + (i + 1));
-              
-              
-              if(dispositivo.isEmpty()){
-                  
-                  
-               JOptionPane.showMessageDialog(this, "No se encontro dispositivo ingresado, Dispositivo no registrado ", "Error", JOptionPane.ERROR_MESSAGE);
+            
+            
+            
 
-              
-              
-              
-              }else{
-              
-              dispositivos += dispositivo.toLowerCase() + ",";
-              
-              
-              }
-              
-        }
-          
-          
-          
-          Salones s = new Salones();
-          
-         String estadosalon = " ESTABLE ";
-          
-          s.nombresalon = nombresalon;
-          s.dispositivos = dispositivos;
-          s.estado = estadosalon;
-         
-          
-          if(Salones.salonesBD == null){
-              
-              Salones.salonesBD = new HashMap<String, Salones>();
-      
-          }
-          
-          
-          if( Salones.salonesBD.containsKey(nombresalon)){
-              
-JOptionPane.showMessageDialog(this, "el salon " + nombresalon +" ya ha sido registrado !DATOS NO REGISTRADOS! ", "Error", JOptionPane.ERROR_MESSAGE);          
-          } else{
-          
-              Salones.salonesBD.put(nombresalon, s);
-              
-              int cuentasalones = Salones.salonesBD.size();
-              JOptionPane.showMessageDialog(this, "el salon " + nombresalon + " fue registrado con exito \n" 
-                                                                                                + " Existen " + cuentasalones + " salones registrados ");
-              
-              
-
-             
-          
-             limpiarcampos();
-          }
-          
+            
+            if(nombresalon.isEmpty() || taman.isEmpty()){
+                
+                JOptionPane.showMessageDialog(this, "Falta ingresar datos ", "Error", JOptionPane.ERROR_MESSAGE);
+                
+            }
+            
+            
+            
+            
+            
+            int tamano = Integer.parseInt(taman);
+            String dispositivos = "";
+            
+            for (int i = 0; i < tamano; i++) {
+                
+                
+                
+                
+                String dispositivo =   JOptionPane.showInputDialog(this, "ingrese dispositivo " + (i + 1));
+                
+                
+                if(dispositivo.isEmpty()){
+                    
+                    
+                    JOptionPane.showMessageDialog(this, "No se encontro dispositivo ingresado, Dispositivo no registrado ", "Error", JOptionPane.ERROR_MESSAGE);
+                    
+                    
+                    
+                    
+                }else{
+                    
+                    dispositivos += dispositivo.toLowerCase() + ",";
+                    
+                    
+                }
+                
+            }
+            
+            
+            
+            Salones s = new Salones();
+            
+            String estadosalon = " ESTABLE ";
+            
+            s.nombresalon = nombresalon;
+            s.dispositivos = dispositivos;
+            s.estado = estadosalon;
+            
+            
+            if(Salones.salonesBD == null){
+                
+                Salones.salonesBD = new HashMap<String, Salones>();
+                
+            }
+            
+            Salones.salonesBD = Almacenamiento.recuperar();
+            
+            
+            if( Salones.salonesBD.containsKey(nombresalon)){
+                
+                JOptionPane.showMessageDialog(this, "el salon " + nombresalon +" ya ha sido registrado !DATOS NO REGISTRADOS! ", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+                
+                
+            }
+            
+            Salones.salonesBD.put(nombresalon, s);
+            
+            int cuentasalones = Salones.salonesBD.size();
+            
+            
+            
+            
+            
+            
+            limpiarcampos();
+            
+            
+            try {
+                Almacenamiento.guardar(Salones.salonesBD);
+                JOptionPane.showMessageDialog(this, "el salon " + nombresalon + " fue registrado con exito \n"
+                        + " Existen " + cuentasalones + " salones registrados ");
+            } catch (IOException error) {
+                
+                JOptionPane.showMessageDialog(this, error.getMessage());
+                
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        } catch (Exception error) {
+                JOptionPane.showMessageDialog(this, error.getMessage());
+            }
+            
           
           
           
@@ -320,37 +353,42 @@ JOptionPane.showMessageDialog(this, "el salon " + nombresalon +" ya ha sido regi
     
     private void botonbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonbuscarActionPerformed
        
-        String nombresalon = txtnombresalon.getText();
-        
-        if(Salones.salonesBD == null || Salones.salonesBD.isEmpty()){
+        try {
+            String nombresalon = txtnombresalon.getText();
+            Salones.salonesBD = Almacenamiento.recuperar();
             
-         JOptionPane.showMessageDialog(this, "No existen salones en la base de datos ", "Error", JOptionPane.ERROR_MESSAGE);          
-        
-        }else{
-            
-            if(Salones.salonesBD.containsKey(nombresalon) ){
+            if(Salones.salonesBD == null || Salones.salonesBD.isEmpty()){
                 
-                  this.salones = Salones.salonesBD.get(nombresalon);
+                JOptionPane.showMessageDialog(this, "No existen salones en la base de datos ", "Error", JOptionPane.ERROR_MESSAGE);
                 
-                txtarea.append("usted ha buscado el salon: " + this.salones.nombresalon+ ",que contiene los siguientes dispositivos: " + this.salones.dispositivos + "\n");
-                
-               botoneditar.setEnabled(true);
-               botoneliminar.setEnabled(true);
-            
             }else{
                 
+                if(Salones.salonesBD.containsKey(nombresalon) ){
+                    
+                    this.salones = Salones.salonesBD.get(nombresalon);
+                    
+                    txtarea.append("usted ha buscado el salon: " + this.salones.nombresalon+ ",que contiene los siguientes dispositivos: " + this.salones.dispositivos + "\n");
+                    
+                    botoneditar.setEnabled(true);
+                    botoneliminar.setEnabled(true);
+                    
+                }else{
+                    
+                    
+                    JOptionPane.showMessageDialog(this, "el salon buscado no existe ", "Error", JOptionPane.ERROR_MESSAGE);
+                    
+                    limpiarcampos();
+                    
+                    
+                    
+                    
+                }
                 
-       JOptionPane.showMessageDialog(this, "el salon buscado no existe ", "Error", JOptionPane.ERROR_MESSAGE);          
-
-            limpiarcampos();
-            
-            
-            
-            
+                
+                
             }
-            
-            
-        
+        } catch (Exception error) {
+            JOptionPane.showMessageDialog(this, error.getMessage());
         }
 
 
@@ -388,6 +426,12 @@ JOptionPane.showMessageDialog(this, "el salon " + nombresalon +" ya ha sido regi
         
         
         
+        
+        
+        
+        
+        
+         
          this.salones = Salones.salonesBD.get(txtnombresalon.getText());
         
         String nombresalon = txtnombresalon.getText();
@@ -426,6 +470,8 @@ JOptionPane.showMessageDialog(this, "el salon " + nombresalon +" ya ha sido regi
               }
               
         }
+          
+          
           
           this.salones.nombresalon = nombresalon;
           this.salones.dispositivos = dispositivos;

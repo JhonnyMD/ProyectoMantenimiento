@@ -4,6 +4,7 @@
  */
 package co.edu.unicolombo.pb.datos;
 
+import java.io.Serializable;
 import java.util.*;
 
 
@@ -11,7 +12,7 @@ import java.util.*;
  *
  * @author POWERGROUP
  */
-public class Salones {
+public class Salones implements Serializable{
     public String nombresalon;
     public String dispositivos;
     public String estado;
