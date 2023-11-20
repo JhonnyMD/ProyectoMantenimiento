@@ -21,6 +21,7 @@ public class VentanaSalones2 extends javax.swing.JDialog {
     
     private String dispositivos[];
 
+
     /**
      * Creates new form VentanaSalones
      */
@@ -214,6 +215,12 @@ public class VentanaSalones2 extends javax.swing.JDialog {
 
     private void botonguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonguardarActionPerformed
             
+        
+        
+        
+        
+        
+        
         try {                                             
             
             String nombresalon = txtnombresalon.getText();
@@ -286,7 +293,6 @@ public class VentanaSalones2 extends javax.swing.JDialog {
                 
             }
             
-            Salones.salonesBD = Almacenamiento.recuperar();
             
             
             if( Salones.salonesBD.containsKey(nombresalon)){
@@ -400,86 +406,105 @@ public class VentanaSalones2 extends javax.swing.JDialog {
     }//GEN-LAST:event_botonbuscarActionPerformed
 
     private void botoneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botoneditarActionPerformed
-        botonbuscarActionPerformed(evt);
-        
-        
-        if(txtnombresalon.getText() == null || txtnombresalon.getText().isEmpty()){
-            
-             JOptionPane.showMessageDialog(this, "Para editar primero debe buscar un salon ", "Error", JOptionPane.ERROR_MESSAGE);          
-
-            limpiarcampos();
-            
-            return;
-        
-        }
-        
-        if(txtnombresalon.getText().equals(this.salones.nombresalon) != true){
-            
-            JOptionPane.showMessageDialog(this, "el salon ingresado no coincide con el salon ingresado previamente ", "Error", JOptionPane.ERROR_MESSAGE);          
-
-            limpiarcampos();
-            
-            return;
-        
-        }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-         
-         this.salones = Salones.salonesBD.get(txtnombresalon.getText());
-        
-        String nombresalon = txtnombresalon.getText();
-         String taman = txttam.getText();
-         
-         try {
-     int tamano = Integer.parseInt(taman);
-        } catch (NumberFormatException e) {
-    JOptionPane.showMessageDialog(this, "Por favor, ingrese un número entero válido.", "Error", JOptionPane.ERROR_MESSAGE);
+         try {                                            
+             botonbuscarActionPerformed(evt);
+             
+             
+             if(txtnombresalon.getText() == null || txtnombresalon.getText().isEmpty()){
+                 
+                 JOptionPane.showMessageDialog(this, "Para editar primero debe buscar un salon ", "Error", JOptionPane.ERROR_MESSAGE);
+                 
+                 limpiarcampos();
+                 
+                 return;
+                 
+             }
+             
+             if(txtnombresalon.getText().equals(this.salones.nombresalon) != true){
+                 
+                 JOptionPane.showMessageDialog(this, "el salon ingresado no coincide con el salon ingresado previamente ", "Error", JOptionPane.ERROR_MESSAGE);
+                 
+                 limpiarcampos();
+                 
+                 return;
+                 
+             }
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             this.salones = Salones.salonesBD.get(txtnombresalon.getText());
+             
+             String nombresalon = txtnombresalon.getText();
+             String taman = txttam.getText();
+             
+             try {
+                 int tamano = Integer.parseInt(taman);
+             } catch (NumberFormatException e) {
+                 JOptionPane.showMessageDialog(this, "Por favor, ingrese un número entero válido.", "Error", JOptionPane.ERROR_MESSAGE);
+             }
+             
+             int tamano = Integer.parseInt(taman);
+             String dispositivos = "";
+             
+             for (int i = 0; i < tamano; i++) {
+                 
+                 
+                 
+                 
+                 String dispositivo =   JOptionPane.showInputDialog(this, "ingrese dispositivo " + (i + 1));
+                 
+                 
+                 if(dispositivo.isEmpty()){
+                     
+                     
+                     JOptionPane.showMessageDialog(this, "No se encontro dispositivo ingresado, Dispositivo no registrado ", "Error", JOptionPane.ERROR_MESSAGE);
+                     
+                     
+                     
+                     
+                 }else{
+                     
+                     dispositivos += dispositivo.toLowerCase() + ",";
+                     
+                     
+                 }
+                 
+             }
+             
+             
+             
+             this.salones.nombresalon = nombresalon;
+             this.salones.dispositivos = dispositivos;
+             
+             
+             
+             
+             
+             Salones.salonesBD.put(this.salones.nombresalon, salones);
+             
+             Almacenamiento.guardar(Salones.salonesBD);
+             
+             
+             
+             JOptionPane.showMessageDialog(this, "Salon modificado con exito");
+             
+             
+             
+             
+             
+             
+             
+             
+         } catch (IOException error) {
+              JOptionPane.showMessageDialog(this, error.getMessage());
             }
-         
-         int tamano = Integer.parseInt(taman);
-         String dispositivos = "";
-          
-          for (int i = 0; i < tamano; i++) {
-              
-              
-              
-              
-              String dispositivo =   JOptionPane.showInputDialog(this, "ingrese dispositivo " + (i + 1));
-              
-              
-              if(dispositivo.isEmpty()){
-                  
-                  
-               JOptionPane.showMessageDialog(this, "No se encontro dispositivo ingresado, Dispositivo no registrado ", "Error", JOptionPane.ERROR_MESSAGE);
-
-              
-              
-              
-              }else{
-              
-              dispositivos += dispositivo.toLowerCase() + ",";
-              
-              
-              }
-              
-        }
-          
-          
-          
-          this.salones.nombresalon = nombresalon;
-          this.salones.dispositivos = dispositivos;
-          
-          Salones.salonesBD.put(this.salones.nombresalon, salones);
-          
-          
-          JOptionPane.showMessageDialog(this, "Salon modificado con exito");
          
          
         
@@ -491,41 +516,45 @@ public class VentanaSalones2 extends javax.swing.JDialog {
     }//GEN-LAST:event_botoneditarActionPerformed
 
     private void botoneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botoneliminarActionPerformed
+if (txtnombresalon.getText() == null || txtnombresalon.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Para eliminar, primero debe buscar un salón", "Error", JOptionPane.ERROR_MESSAGE);
+        limpiarcampos();
+        return;
+    }
 
-    if(txtnombresalon.getText() == null || txtnombresalon.getText().isEmpty()){
-            
-             JOptionPane.showMessageDialog(this, "Para editar primero debe buscar un salon ", "Error", JOptionPane.ERROR_MESSAGE);          
+    if (!txtnombresalon.getText().equals(this.salones.nombresalon)) {
+        JOptionPane.showMessageDialog(this, "El salón ingresado no coincide con el salón ingresado previamente", "Error", JOptionPane.ERROR_MESSAGE);
+        limpiarcampos();
+        return;
+    }
 
-            limpiarcampos();
-            
+    int respuesta = JOptionPane.showConfirmDialog(this, "¿Seguro que desea eliminar el salón?", "CONFIRMAR", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+    if (respuesta == JOptionPane.YES_OPTION) {
+        String salonAEliminar = this.salones.nombresalon;
+
+        HashMap<String, Salones> datosSalones = null;
+        try {
+            datosSalones = Almacenamiento.recuperar();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al recuperar datos del archivo", "Error", JOptionPane.ERROR_MESSAGE);
             return;
-        
-        }
-        
-        if(txtnombresalon.getText().equals(this.salones.nombresalon) != true){
-            
-            JOptionPane.showMessageDialog(this, "el salon ingresado no coincide con el salon ingresado previamente ", "Error", JOptionPane.ERROR_MESSAGE);          
-
-            limpiarcampos();
-            
-            return;
-        
-        }
-        
-        int respuesta = JOptionPane.showConfirmDialog(this, "seguro que desea eliminar el salon?" , "COMFIRMAR", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            
-        
-        if(respuesta == JOptionPane.YES_OPTION){
-            
-            Salones.salonesBD.remove(this.salones.nombresalon);
-            
-            int total = Salones.salonesBD.size();
-            JOptionPane.showMessageDialog(this, "Salon eliminado con exito \ntotal de salones actual: "+ total);
-                    
-        
         }
 
+        if (datosSalones != null && datosSalones.containsKey(salonAEliminar)) {
+            datosSalones.remove(salonAEliminar);
 
+            try {
+                Almacenamiento.guardar(datosSalones);
+                int total = datosSalones.size();
+                JOptionPane.showMessageDialog(this, "Salón eliminado con éxito\nTotal de salones actual: " + total);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "Error al guardar datos actualizados en el archivo", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "El salón no se encontró en los datos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     }//GEN-LAST:event_botoneliminarActionPerformed
 
     private void botoncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botoncancelarActionPerformed
