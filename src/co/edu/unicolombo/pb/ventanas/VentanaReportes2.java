@@ -5,6 +5,10 @@
 package co.edu.unicolombo.pb.ventanas;
 
 import co.edu.unicolombo.pb.datos.Salones;
+import co.edu.unicolombo.pb.persistencia.Almacenamiento;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -157,77 +161,83 @@ public class VentanaReportes2 extends javax.swing.JDialog {
     }
     
     private void botonguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonguardarActionPerformed
-        String nombresalon = txtnombresalon.getText();
-        String detalles = txtdetalles.getText();
-        
-        
-                if(txtnombresalon.getText() == null || txtnombresalon.getText().isEmpty()){
-            
-             JOptionPane.showMessageDialog(this, "FALTAN DATOS POR INGRESAR ", "Error", JOptionPane.ERROR_MESSAGE);          
-
-            limpiarcampos();
-            
-            return;
+        try {
+            String nombresalon = txtnombresalon.getText();
+            String detalles = txtdetalles.getText();
             
             
-        
-        } 
-                 if(Salones.salonesBD == null || Salones.salonesBD.isEmpty()){
+            if(txtnombresalon.getText() == null || txtnombresalon.getText().isEmpty()){
+                
+                JOptionPane.showMessageDialog(this, "FALTAN DATOS POR INGRESAR ", "Error", JOptionPane.ERROR_MESSAGE);
+                
+                limpiarcampos();
+                
+                return;
+            }
             
-         JOptionPane.showMessageDialog(this, "No existen salones en la base de datos ", "Error", JOptionPane.ERROR_MESSAGE);          
-        
-        }else{
+            
+            
+            try {
+                Salones.salonesBD = Almacenamiento.recuperar();
+            } catch (Exception error) {
+                 JOptionPane.showMessageDialog(this, error.getMessage());
+            }
             
             if(Salones.salonesBD.containsKey(nombresalon) ){
                 
-                  this.salones = Salones.salonesBD.get(nombresalon);
+                this.salones = Salones.salonesBD.get(nombresalon);
                 
             
             }else{
                 
                 
-       JOptionPane.showMessageDialog(this, "el salon buscado no existe ", "Error", JOptionPane.ERROR_MESSAGE);          
-
-            limpiarcampos();
-            
-            
-            
-            
+                JOptionPane.showMessageDialog(this, "el salon buscado no existe ", "Error", JOptionPane.ERROR_MESSAGE);
+                
+                limpiarcampos();
+                
+                
+                
+                
             }
             
             
-        
+            
+            
+            
+            
+            
+            
+            this.salones = Salones.salonesBD.get(txtnombresalon.getText());
+            
+            this.salones.nombresalon = nombresalon;
+            this.salones.detalles = detalles;
+            
+            String[] opciones = {"Averiado", "Mantenimiento"};
+            
+            int estado = JOptionPane.showOptionDialog(this, "Desea reportar mal estado o mantenimiento hecho?", "?", WIDTH, JOptionPane.QUESTION_MESSAGE, null,opciones , "");
+            
+            if (estado == 0){
+                
+                this.salones.estado = "!AVERIADO!";
+                
+            } else {
+                
+                
+                this.salones.estado = "ESTABLE";
+            }
+            
+            
+            
+            
+            Salones.salonesBD.put(this.salones.nombresalon, salones);
+            
+            Almacenamiento.guardar(Salones.salonesBD);
+            
+            
+            JOptionPane.showMessageDialog(this, "REPORTE INGRESADO");
+        } catch (IOException error) {
+             JOptionPane.showMessageDialog(this, error.getMessage());
         }
-                 
-                 
-                 
-                 
-   this.salones = Salones.salonesBD.get(txtnombresalon.getText());
-   
-             this.salones.nombresalon = nombresalon;
-             this.salones.detalles = detalles;
-             
-             String[] opciones = {"Averiado", "Mantenimiento"};
-             
-             int estado = JOptionPane.showOptionDialog(this, "Desea reportar mal estado o mantenimiento hecho?", "?", WIDTH, JOptionPane.QUESTION_MESSAGE, null,opciones , "");
-             
-             if (estado == 0){
-                 
-                 this.salones.estado = "!AVERIADO!";
-             
-             } else {
-             
-             
-             this.salones.estado = "ESTABLE";
-             }
-             
-             
-             
-             
-        Salones.salonesBD.put(this.salones.nombresalon, salones);
-          
-          
-          JOptionPane.showMessageDialog(this, "REPORTE INGRESADO");
 
 
 

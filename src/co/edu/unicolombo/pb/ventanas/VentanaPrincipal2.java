@@ -5,6 +5,7 @@
 package co.edu.unicolombo.pb.ventanas;
 
 import co.edu.unicolombo.pb.datos.Salones;
+import co.edu.unicolombo.pb.persistencia.Almacenamiento;
 import javax.swing.JOptionPane;
 
 
@@ -204,21 +205,25 @@ public class VentanaPrincipal2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void itemtodoslossalonesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemtodoslossalonesActionPerformed
-            
-        
-          if(Salones.salonesBD == null || Salones.salonesBD.isEmpty()){
-            
-             JOptionPane.showMessageDialog(this, "No existen salones ", "Error", JOptionPane.ERROR_MESSAGE);
-             
-             return;
-        
-        }
+
+        try {
+    
+            Salones.salonesBD = Almacenamiento.recuperar(); 
+
+    if (Salones.salonesBD != null && !Salones.salonesBD.isEmpty()) {
         VentanaListaSalones2 ventana = new VentanaListaSalones2(this, true);
         ventana.setLocationRelativeTo(this);
-        ventana.setVisible(true);  
-      
+        ventana.setVisible(true);
+    
+    } else {
+        JOptionPane.showMessageDialog(this, "No existen salones", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
 
+        } catch (Exception e) {
+    JOptionPane.showMessageDialog(this, "No existe base de datos", "Error", JOptionPane.ERROR_MESSAGE);
 
+        }
     }//GEN-LAST:event_itemtodoslossalonesActionPerformed
 
     private void itemrelizarreporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemrelizarreporteActionPerformed
