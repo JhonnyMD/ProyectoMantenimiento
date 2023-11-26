@@ -15,9 +15,10 @@ import java.util.HashMap;
 
 /**
  *
- * @author POWERGROUP
+ * @author HP
  */
-public class Almacenamiento {
+public class Almacenamiento2 {
+
     public static String rutaBase = System.getProperty("user.home") +File.separator+"mis datos";
     public static String nombreArchivo = "datos.txt";
     
@@ -72,3 +73,4 @@ public class Almacenamiento {
     
     }
 }
+
