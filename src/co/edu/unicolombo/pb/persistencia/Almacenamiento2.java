@@ -22,7 +22,7 @@ public class Almacenamiento2 {
     public static String nombreArchivo = "datos.txt";
     
     public static void guardar(HashMap<String, Salones> bd) throws IOException{
-        System.out.println("Hola");
+        System.out.println("Hola Mundo");
         String rutacompleta = rutaBase+ File.separator+nombreArchivo;
         File archivo = new File (rutacompleta);
         
