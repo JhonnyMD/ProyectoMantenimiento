@@ -18,12 +18,11 @@ import java.util.HashMap;
  * @author HP
  */
 public class Almacenamiento2 {
-
     public static String rutaBase = System.getProperty("user.home") +File.separator+"mis datos";
     public static String nombreArchivo = "datos.txt";
     
     public static void guardar(HashMap<String, Salones> bd) throws IOException{
-        
+        System.out.println("Hola");
         String rutacompleta = rutaBase+ File.separator+nombreArchivo;
         File archivo = new File (rutacompleta);
         
