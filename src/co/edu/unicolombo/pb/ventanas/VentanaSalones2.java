@@ -7,7 +7,7 @@ package co.edu.unicolombo.pb.ventanas;
 import co.edu.unicolombo.pb.datos.Salones;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
-import co.edu.unicolombo.pb.persistencia.Almacenamiento;
+import co.edu.unicolombo.pb.persistencia.Almacenamiento2;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -316,7 +316,7 @@ public class VentanaSalones2 extends javax.swing.JDialog {
             
             
             try {
-                Almacenamiento.guardar(Salones.salonesBD);
+                Almacenamiento2.guardar(Salones.salonesBD);
                 JOptionPane.showMessageDialog(this, "el salon " + nombresalon + " fue registrado con exito \n"
                         + " Existen " + cuentasalones + " salones registrados ");
             } catch (IOException error) {
@@ -361,7 +361,7 @@ public class VentanaSalones2 extends javax.swing.JDialog {
        
         try {
             String nombresalon = txtnombresalon.getText();
-            Salones.salonesBD = Almacenamiento.recuperar();
+            Salones.salonesBD = Almacenamiento2.recuperar();
             
             if(Salones.salonesBD == null || Salones.salonesBD.isEmpty()){
                 
@@ -489,7 +489,7 @@ public class VentanaSalones2 extends javax.swing.JDialog {
              
              Salones.salonesBD.put(this.salones.nombresalon, salones);
              
-             Almacenamiento.guardar(Salones.salonesBD);
+             Almacenamiento2.guardar(Salones.salonesBD);
              
              
              
@@ -535,7 +535,7 @@ if (txtnombresalon.getText() == null || txtnombresalon.getText().isEmpty()) {
 
         HashMap<String, Salones> datosSalones = null;
         try {
-            datosSalones = Almacenamiento.recuperar();
+            datosSalones = Almacenamiento2.recuperar();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al recuperar datos del archivo", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -545,7 +545,7 @@ if (txtnombresalon.getText() == null || txtnombresalon.getText().isEmpty()) {
             datosSalones.remove(salonAEliminar);
 
             try {
-                Almacenamiento.guardar(datosSalones);
+                Almacenamiento2.guardar(datosSalones);
                 int total = datosSalones.size();
                 JOptionPane.showMessageDialog(this, "Salón eliminado con éxito\nTotal de salones actual: " + total);
             } catch (IOException e) {

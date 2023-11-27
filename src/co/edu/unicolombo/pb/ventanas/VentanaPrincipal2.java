@@ -5,7 +5,7 @@
 package co.edu.unicolombo.pb.ventanas;
 
 import co.edu.unicolombo.pb.datos.Salones;
-import co.edu.unicolombo.pb.persistencia.Almacenamiento;
+import co.edu.unicolombo.pb.persistencia.Almacenamiento2;
 import javax.swing.JOptionPane;
 
 
@@ -208,7 +208,7 @@ public class VentanaPrincipal2 extends javax.swing.JFrame {
 
         try {
     
-            Salones.salonesBD = Almacenamiento.recuperar(); 
+            Salones.salonesBD = Almacenamiento2.recuperar(); 
 
     if (Salones.salonesBD != null && !Salones.salonesBD.isEmpty()) {
         VentanaListaSalones2 ventana = new VentanaListaSalones2(this, true);

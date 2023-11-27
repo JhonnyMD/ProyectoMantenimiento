@@ -5,7 +5,7 @@
 package co.edu.unicolombo.pb.ventanas;
 
 import co.edu.unicolombo.pb.datos.Salones;
-import co.edu.unicolombo.pb.persistencia.Almacenamiento;
+import co.edu.unicolombo.pb.persistencia.Almacenamiento2;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -178,7 +178,7 @@ public class VentanaReportes2 extends javax.swing.JDialog {
             
             
             try {
-                Salones.salonesBD = Almacenamiento.recuperar();
+                Salones.salonesBD = Almacenamiento2.recuperar();
             } catch (Exception error) {
                  JOptionPane.showMessageDialog(this, error.getMessage());
             }
@@ -231,7 +231,7 @@ public class VentanaReportes2 extends javax.swing.JDialog {
             
             Salones.salonesBD.put(this.salones.nombresalon, salones);
             
-            Almacenamiento.guardar(Salones.salonesBD);
+            Almacenamiento2.guardar(Salones.salonesBD);
             
             
             JOptionPane.showMessageDialog(this, "REPORTE INGRESADO");
